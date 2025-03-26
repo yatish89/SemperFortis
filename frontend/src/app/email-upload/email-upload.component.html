@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="card">
+    <h2 class="title">📧 Gen AI-Based Email Classification</h2>
+    <div
+      class="drop-zone"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event)"
+    >
+      <!-- <p *ngIf="!selectedFile">
+        Drag & drop an EML file here or click to upload
+      </p> -->
+      <p *ngIf="selectedFile" class="file-name">✔️ {{ selectedFile.name }}</p>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        accept=".eml"
+        hidden
+      />
+      <button class="browse-btn" (click)="triggerFileInput()">
+        Browse File
+      </button>
+    </div>
+
+    <button class="upload-btn" (click)="onUpload()" [disabled]="!selectedFile">
+      ⬆️ Upload and Process
+    </button>
+  </div>
+
+  <!-- Show loading message when isLoading is true -->
+  <div *ngIf="isLoading" class="loading">⏳ Extracting details...</div>
+
+  <div *ngIf="responseData" class="response-card">
+    <h3 class="response-title">🔍 Response:</h3>
+    <div class="response-box" [innerHTML]="responseData"></div>
+  </div>
+</div>
